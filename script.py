@@ -9,46 +9,39 @@ spots = {1: "1", 2: "2", 3: "3", 4: "4", 5: "5", 6: "6", 7: "7", 8: "8", 9: "9"}
 choices = []
 
 def restart_game():
-    play_again = input("Would you play again yes or no?")
+    play_again = input("Would you play again yes or no? ")
+    global spots
     if play_again.lower() == "yes":
-        for i in range(9):
-            spots[i+1] = str(i+1)
+        spots = {1: "1", 2: "2", 3: "3", 4: "4", 5: "5", 6: "6", 7: "7", 8: "8", 9: "9"}
         choices.clear()
         game_loop()
-
-
     elif play_again.lower() == "no":
         print("Thanks for playing!")
         exit()
+    else:
+        print("Invalid input. Please enter 'yes' or 'no'.")
+        restart_game()
 
 def check_victory(spots, turn):
     if spots[1] == spots[2] == spots[3]:
-        print(draw_board(spots))
-        return spots[1] or None
+        return spots[1]
     elif spots[4] == spots[5] == spots[6]:
-        print(draw_board(spots))
-        return spots[4] or None
+        return spots[4]
     elif spots[7] == spots[8] == spots[9]:
-        print(draw_board(spots))
-        return spots[7] or None
+        return spots[7]
     elif spots[1] == spots[4] == spots[7]:
-        print(draw_board(spots))
-        return spots[1] or None
+        return spots[1]
     elif spots[2] == spots[5] == spots[8]:
-        print(draw_board(spots))
-        return spots[2] or None
+        return spots[2]
     elif spots[3] == spots[6] == spots[9]:
-        print(draw_board(spots))
-        return spots[3] or None
+        return spots[3]
     elif spots[1] == spots[5] == spots[9]:
-        print(draw_board(spots))
-        return spots[1] or None
+        return spots[1]
     elif spots[3] == spots[5] == spots[7]:
-        print(draw_board(spots))
-        return spots[3] or None
+        return spots[3]
     elif turn == 9:
-        print(draw_board(spots))
         return "Draw"
+    return None
 
 
 def check_input(choice):
@@ -84,7 +77,7 @@ def game_loop():
         print(draw_board(spots))
         turn += 1
         player = play_turn(turn)
-        choice = input(f"Player {play_turn(turn)}, choose number between 1 and 9 or q to quit the game: ")
+        choice = input(f"Player {player}, choose number between 1 and 9 or q to quit the game: ")
         choice = check_input(choice)
         choices.append(choice)
         # turn += 1
@@ -92,11 +85,14 @@ def game_loop():
         spots[int(choice)] = player
         sign_victory = check_victory(spots, turn)
         if sign_victory != None and sign_victory != "Draw":
-            print(f"Player {sign_victory} won")
+            print(f"Player {sign_victory} won!")
+            print(draw_board(spots))
             restart_game()
-            exit()
+            break
         elif sign_victory == 'Draw': 
-            print("Draw")
+            print(draw_board(spots))
+            print("Draw!")
             restart_game()
+            break
 
 game_loop()
