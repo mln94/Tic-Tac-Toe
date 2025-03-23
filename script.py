@@ -23,22 +23,31 @@ def restart_game():
 
 def check_victory(spots, turn):
     if spots[1] == spots[2] == spots[3]:
+        print(draw_board(spots))
         return spots[1] or None
     elif spots[4] == spots[5] == spots[6]:
+        print(draw_board(spots))
         return spots[4] or None
     elif spots[7] == spots[8] == spots[9]:
+        print(draw_board(spots))
         return spots[7] or None
     elif spots[1] == spots[4] == spots[7]:
+        print(draw_board(spots))
         return spots[1] or None
     elif spots[2] == spots[5] == spots[8]:
+        print(draw_board(spots))
         return spots[2] or None
     elif spots[3] == spots[6] == spots[9]:
+        print(draw_board(spots))
         return spots[3] or None
     elif spots[1] == spots[5] == spots[9]:
+        print(draw_board(spots))
         return spots[1] or None
     elif spots[3] == spots[5] == spots[7]:
+        print(draw_board(spots))
         return spots[3] or None
     elif turn == 9:
+        print(draw_board(spots))
         return "Draw"
 
 
@@ -89,6 +98,5 @@ def game_loop():
         elif sign_victory == 'Draw': 
             print("Draw")
             restart_game()
-
 
 game_loop()
